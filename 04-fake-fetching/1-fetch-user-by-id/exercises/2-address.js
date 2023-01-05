@@ -8,7 +8,7 @@ const { log, error } = labeledLogger();
 // --- declare some callbacks ---
 
 const getAddress = (user) => {
-  // write me!
+  return `${user.id}, ${user.address.street}, ${user.address.city}, ${user.address.zipcode}.`;// write me!
 };
 
 const handleError = (err) => error(err);
@@ -16,19 +16,31 @@ const handleError = (err) => error(err);
 // --- use the callbacks ---
 
 log('fetching and processing user 9');
+fetchUserById(9)
+  .then((user) => getAddress(user))
 // "9: Dayna Park, Bartholomebury 76495-3109"
-__;
+.then((contactInfo) => log(contactInfo))
+.catch((err) => error(err));
 
 log('fetching and processing user 8');
+fetchUserById(8)
+  .then((user) => getAddress(user))
 // "8: Ellsworth Summit, Aliyaview 45169"
-__;
+  .then((contactInfo) => log(contactInfo))
+  .catch((err) => error(err));
 
 log('fetching and processing user 2');
+fetchUserById(2)
+  .then((user) => getAddress(user))
 // "2: Victor Plains, Wisokyburgh 90566-7771"
-__;
+  .then((contactInfo) => log(contactInfo))
+  .catch((err) => error(err));
 
 log('fetching and processing user 0');
 // 404
-__;
+fetchUserById(0)
+  .then((user)=> getAddress(user))
+  .then((contactInfo) => log(contactInfo))
+  .catch((err)=> handleError(err));
 
 log('= = = =  the call stack is empty  = = = =');
